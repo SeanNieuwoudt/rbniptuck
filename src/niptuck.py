@@ -3,7 +3,8 @@
 
 '''
     A really simple way to convert old-style Ruby hashes to Ruby 1.8^ compliant syntax
-    and also convert uninterpolated double quoted strings into single quoted strings.
+    and also (while we're at it) convert uninterpolated double quoted strings into 
+    single quoted strings.
 
     @author Sean Nieuwoudt
     @email  sean@wixelhq.com
@@ -14,18 +15,18 @@ import os
 import re
 import argparse
 
-# Convert old-style hashes
+## Convert old-style hashes
 
 def process_hashes(s):
     regex = re.compile(r":([a-zA-Z0-9_]+)\s*=>\s*", re.MULTILINE)
     return regex.sub(r"\1: ", s)
 
-# Convert double quoted strings to single quoted
+## Convert double quoted strings to single quoted
 
 def process_quoted(s):
     return re.sub(r"\"([a-zA-Z0-9_-]+)\"", r"'\1'", s)
 
-# Write the file output
+## Write the file output
 
 def write_file(path, contents):
     file = open(path, "w")
@@ -33,7 +34,7 @@ def write_file(path, contents):
     print(contents)
     file.close()
 
-# Get file contents
+## Get file contents
 
 def get_contents(path):
     file = open(f, 'r')
@@ -41,7 +42,7 @@ def get_contents(path):
     file.close()
     return contents
 
-# Recursively scan a directory for all matching files
+## Recursively scan a directory for all matching files
 
 def scan_dir(p, ext=".rb"):
     files = []
