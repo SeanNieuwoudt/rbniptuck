@@ -29,4 +29,9 @@ To this:
 
     $> python niptuck.py --dir ./src --ext .rb
     
+    
+##### Options are:
+
+* `--dir` or `-d` to specify the directory
+* `--ext` or `-e` to specify the file extensions to look for
 
