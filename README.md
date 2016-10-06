@@ -14,7 +14,7 @@ To this:
       key: 'Value'
     }
     
-While we're at, un-interpolated double quoted Ruby strings get converted to their single quoted equivalent. 
+While we're at, uninterpolated double quoted Ruby strings get converted to their single quoted equivalent. 
 
 From this: 
 
