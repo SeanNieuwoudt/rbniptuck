@@ -62,7 +62,7 @@ def scan_dir(p, ext=".rb"):
     return files
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser("asdasd")
+    parser = argparse.ArgumentParser()
     parser.add_argument('-d', '--dir', default=".")
     parser.add_argument('-e', '--ext', default=".rb")
     parser.add_argument('-c', '--cnt', default="n")
@@ -82,5 +82,6 @@ if __name__ == "__main__":
             contents = process_quoted(contents)
             write_file(f, contents)
 
-        print(
-            "Completed: {0} ({1} bytes) - {2} occurances".format(f, len(contents), local_count))
+        message = "Parsed: {0} ({1} bytes) - {2} occurances"
+
+        print(message.format(f, len(contents), local_count))
