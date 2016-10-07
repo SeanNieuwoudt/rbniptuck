@@ -15,26 +15,31 @@ import os
 import re
 import argparse
 
-## Convert old-style hashes
+# Convert old-style hashes
 
 def process_hashes(s):
     regex = re.compile(r":([a-zA-Z0-9_]+)\s*=>\s*", re.MULTILINE)
     return regex.sub(r"\1: ", s)
 
-## Convert double quoted strings to single quoted
+# Convert double quoted strings to single quoted
 
 def process_quoted(s):
     return re.sub(r"\"([a-zA-Z0-9_-]+)\"", r"'\1'", s)
 
-## Write the file output
+# Count the number of times the old style hash occurs
+
+def count_hash_occurances(s):
+    regex = re.compile(r":([a-zA-Z0-9_]+)\s*=>\s*", re.MULTILINE)
+    return len(regex.findall(s))
+
+# Write the file output
 
 def write_file(path, contents):
     file = open(path, "w")
     file.write(contents)
-    print(contents)
     file.close()
 
-## Get file contents
+# Get file contents
 
 def get_contents(path):
     file = open(f, 'r')
@@ -42,7 +47,7 @@ def get_contents(path):
     file.close()
     return contents
 
-## Recursively scan a directory for all matching files
+# Recursively scan a directory for all matching files
 
 def scan_dir(p, ext=".rb"):
     files = []
@@ -60,14 +65,22 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser("asdasd")
     parser.add_argument('-d', '--dir', default=".")
     parser.add_argument('-e', '--ext', default=".rb")
+    parser.add_argument('-c', '--cnt', default="n")
 
     args = parser.parse_args()
 
+    total_count = 0
+
     for f in scan_dir(args.dir, args.ext):
         contents = get_contents(f)
-        contents = process_hashes(contents)
-        contents = process_quoted(contents)
 
-        write_file(f, contents)
+        local_count = 0
+        local_count += count_hash_occurances(contents)
 
-        print("Completed: {0} ({1} bytes)".format(f, len(contents)))
+        if args.cnt != "y":
+            contents = process_hashes(contents)
+            contents = process_quoted(contents)
+            write_file(f, contents)
+
+        print(
+            "Completed: {0} ({1} bytes) - {2} occurances".format(f, len(contents), local_count))
