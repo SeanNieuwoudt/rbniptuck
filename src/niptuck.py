@@ -3,7 +3,7 @@
 
 '''
     A really simple way to convert old-style Ruby hashes to Ruby 1.8^ compliant syntax
-    and also (while we're at it) convert uninterpolated double quoted strings into 
+    and also (while we're at it) convert uninterpolated double quoted strings into
     single quoted strings.
 
     @author Sean Nieuwoudt
